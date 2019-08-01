@@ -16,6 +16,7 @@ class EditFeed extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       name: "",
       link: ""
     };
@@ -28,10 +29,11 @@ class EditFeed extends Component {
     setTimeout(() => {
       let res = feeds.find(x => x.id === id);
       this.setState({
+        id: res.id,
         name: res.feedName,
         link: res.feedLink
       });
-    }, 500);
+    }, 300);
   }
 
   onSubmit = e => {
@@ -50,6 +52,15 @@ class EditFeed extends Component {
     // Update client in firestore
     firestore
       .update({ collection: "feeds", doc: id }, updClient)
+      .then(history.push("/"));
+  };
+
+  // Delete client
+  onDeleteClick = () => {
+    const { feed, firestore, history } = this.props;
+
+    firestore
+      .delete({ collection: "feeds", doc: feed.id })
       .then(history.push("/"));
   };
 
@@ -75,6 +86,16 @@ class EditFeed extends Component {
               </Fab>
             </Link>
           </div>
+
+          <Button
+            style={{ float: "right" }}
+            color="secondary"
+            aria-label="delete"
+            onClick={this.onDeleteClick}
+          >
+            <i className="far fa-trash-alt fa-2x" style={{ margin: "2px" }} />{" "}
+            DELETE
+          </Button>
 
           <div>
             <form onSubmit={this.onSubmit}>

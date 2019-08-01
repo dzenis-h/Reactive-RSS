@@ -15,14 +15,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
 const TableComponent = props => {
-  // // Delete client
-  // onDeleteClick = () => {
-  //   const { feed, firestore } = props;
-
-  //   firestore.delete({ collection: "feeds", doc: feed.id });
-  //   // .then(history.push("/"));
-  // };
-
   const StyledTableCell = withStyles(theme => ({
     head: {
       backgroundColor: theme.palette.common.black,
@@ -109,61 +101,12 @@ const TableComponent = props => {
             </TableBody>
           </Table>
         </Paper>
-
-        {/* <Paper className="">
-          <Table className="">
-            <TableHead>
-              <TableRow>
-                <TableCell style={{ color: "#6666ff", fontWeight: 700 }}>
-                  FEED NAME:
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ color: "#cc0000", fontWeight: 700 }}
-                >
-                  FEED URL:
-                </TableCell>
-                <TableCell align="right" style={{ fontWeight: 700 }}>
-                  EDIT
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {feeds.map(feed => (
-                <TableRow key={feed.id}>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    style={{
-                      color: "#cc0000",
-                      fontWeight: 700,
-                      letterSpacing: 1
-                    }}
-                  >
-                    {feed.feedName}
-                  </TableCell>
-                  <TableCell style={{ color: "#6666ff" }} align="right">
-                    {feed.feedLink}>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Link
-                      to={`/edit/${feed.id}`}
-                      className="btn btn-secondary btn-sm"
-                    >
-                      <i className="fas fa-pencil-alt" />
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Paper> */}
       </div>
     );
   } else {
     return (
       <div>
-        <img src={Logo} alt="" className="App-logo" />
+        <img src={Logo} alt="Reactive Feed" className="App-logo" />
       </div>
     );
   }
