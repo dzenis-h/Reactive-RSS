@@ -9,7 +9,6 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 
 class Register extends Component {
@@ -21,12 +20,13 @@ class Register extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const { firebase } = this.props;
+    const { firebase, history } = this.props;
     const { email, password } = this.state;
 
     // Register with firebase
     firebase
       .createUser({ email, password })
+      .then(() => history.push("/"))
       .catch(err => alert("That User Already Exists:" + err));
   };
 
@@ -35,7 +35,6 @@ class Register extends Component {
   render() {
     return (
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <div>
           <Avatar style={{ margin: "auto", marginTop: "1rem" }}>
             <LockOutlinedIcon />

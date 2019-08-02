@@ -23,6 +23,7 @@
     "react-with-firebase-auth": "^1.0.3",
     "react-xml-parser": "^1.1.2",
     "redux": "^4.0.4",
+    "redux-auth-wrapper": "^2.1.0",
     "redux-firestore": "^0.8.0",
     "rss-parser": "^3.7.2",
     "validator": "^11.1.0",

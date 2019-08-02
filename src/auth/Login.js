@@ -26,7 +26,7 @@ class Login extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const { firebase } = this.props;
+    const { firebase, history } = this.props;
     const { email, password } = this.state;
 
     firebase
@@ -34,6 +34,7 @@ class Login extends Component {
         email,
         password
       })
+      .then(() => history.push("/"))
       .catch(err => alert("Invalid Login Credentials", "error"));
   };
 
