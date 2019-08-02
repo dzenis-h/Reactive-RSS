@@ -10,7 +10,7 @@ import { reduxFirestore, firestoreReducer } from "redux-firestore";
 import { config } from "./config";
 
 const firebaseConfig = {
-  //   //  YOUR FIREBASE CONFIG FILE GOES HERE ...
+  //   //  YOUR FIREBASE CONFIG FILE GO HERE ...
   apiKey: config.apiKey,
   authDomain: config.authDomain,
   databaseURL: config.databaseURL,
