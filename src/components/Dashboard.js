@@ -3,7 +3,6 @@ import Parser from "rss-parser";
 import Search from "./Search";
 import ResultList from "./ResultList";
 import TableComponent from "./TableComponent";
-import logo from "../logo.svg";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
@@ -15,6 +14,7 @@ import {
   DialogContentText,
   DialogTitle
 } from "@material-ui/core";
+import logo from "../logo.svg";
 
 class Dashboard extends Component {
   state = {

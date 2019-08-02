@@ -1,68 +1,98 @@
-import React from "react";
+import React, { Component } from "react";
 import RSS_LOGO from "../rss.png";
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar, Typography, makeStyles } from "@material-ui/core";
+import PropTypes from "prop-types";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  title: {
-    flexGrow: 1,
-    color: "white",
-    fontSize: "2rem",
-    padding: "0 5px",
-    marginBottm: ".5rem",
-    textDecoration: "none",
-    "&:hover": {
-      color: "red",
-      textDecoration: "none"
-    }
-  },
-  links: {
-    flexGrow: 1,
-    fontsize: "1rem",
-    color: "white",
-    textDecoration: "none",
-    "&:hover": {
-      color: "red",
-      textDecoration: "none"
+import { AppBar, Toolbar } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+
+class Navbar extends Component {
+  state = {
+    isAuthenticated: false
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    const { auth } = props;
+
+    if (auth.uid) {
+      return { isAuthenticated: true };
+    } else {
+      return { isAuthenticated: false };
     }
   }
-}));
 
-export default function Navbar() {
-  const classes = useStyles();
+  onLogoutClick = e => {
+    e.preventDefault();
 
-  return (
-    // <Fragment>
+    const { firebase } = this.props;
+    firebase.logout();
+  };
 
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            <Link to="/" className={classes.title}>
-              <img
-                style={{
-                  float: "left",
-                  height: "60px",
-                  width: "60px",
-                  marginRight: "10px"
-                }}
-                src={RSS_LOGO}
-                alt="Reactive RSS"
-              />{" "}
-              <span className="">Reactive RSS</span>
-            </Link>
-          </Typography>
-          <Link to="/add" className={classes.links}>
-            Add Feed
-          </Link>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+  render() {
+    const { isAuthenticated } = this.state;
+    const { auth } = this.props;
+
+    return (
+      <div className="{classes.root}">
+        <AppBar position="static">
+          <Toolbar>
+            <Grid item xs={3}>
+              <Link to="/" style={{ float: "left", fontSize: "2rem" }}>
+                <img
+                  style={{
+                    float: "left",
+                    height: "45px",
+                    width: "45px",
+                    marginRight: "10px",
+                    marginTop: "auto"
+                  }}
+                  src={RSS_LOGO}
+                  alt="Reactive RSS"
+                />{" "}
+                <span style={{ fontSize: "1rem", margin: "auto" }}>
+                  Reactive RSS
+                </span>
+              </Link>
+            </Grid>
+            <Grid xs="9">
+              {!isAuthenticated ? (
+                <Link className="" to="/login">
+                  <a href="#!">Login</a>
+                </Link>
+              ) : null}
+
+              {isAuthenticated ? (
+                <div>
+                  <p>
+                    Welcome,{" "}
+                    <span style={{ color: "#cc0000" }}>{auth.email}</span>
+                  </p>
+                  <Link to="/add" className="">
+                    Add Feed
+                  </Link>
+                  <a href="#!" className="" onClick={this.onLogoutClick}>
+                    Logout
+                  </a>
+                </div>
+              ) : null}
+            </Grid>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
+
+Navbar.propTypes = {
+  firebase: PropTypes.object.isRequired
+};
+
+export default compose(
+  firebaseConnect(),
+  connect((state, props) => ({
+    auth: state.firebase.auth
+  }))
+)(Navbar);
