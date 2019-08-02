@@ -28,7 +28,10 @@ class Navbar extends Component {
     e.preventDefault();
 
     const { firebase } = this.props;
-    firebase.logout();
+    firebase
+      .logout()
+      .then(() => window.location.reload())
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -36,7 +39,7 @@ class Navbar extends Component {
     const { auth } = this.props;
 
     return (
-      <div className="{classes.root}">
+      <div>
         <AppBar position="static">
           <Toolbar>
             <Grid item xs={3}>
@@ -57,11 +60,12 @@ class Navbar extends Component {
                 </span>
               </Link>
             </Grid>
-            <Grid xs="9">
+            <Grid item xs={9}>
               {!isAuthenticated ? (
-                <Link className="" to="/login">
-                  <a href="#!">Login</a>
-                </Link>
+                <div>
+                  <Link to="/login">Login</Link>
+                  <Link to="/singup">Singup</Link>
+                </div>
               ) : null}
 
               {isAuthenticated ? (
@@ -70,10 +74,8 @@ class Navbar extends Component {
                     Welcome,{" "}
                     <span style={{ color: "#cc0000" }}>{auth.email}</span>
                   </p>
-                  <Link to="/add" className="">
-                    Add Feed
-                  </Link>
-                  <a href="#!" className="" onClick={this.onLogoutClick}>
+                  <Link to="/add">Add Feed</Link>
+                  <a href="#!" onClick={this.onLogoutClick}>
                     Logout
                   </a>
                 </div>

@@ -14,7 +14,7 @@ import {
   DialogContentText,
   DialogTitle
 } from "@material-ui/core";
-import logo from "../logo.svg";
+import LoadingScreen from "../helpers/Spinner";
 
 class Dashboard extends Component {
   state = {
@@ -104,13 +104,7 @@ class Dashboard extends Component {
           onClick={() => this.setState({ fetching: true })}
         />
         {this.state.error ? this.renderAlert() : <div />}
-        {!this.state.fetching ? (
-          <p />
-        ) : (
-          <div>
-            <img src={logo} alt="" className="App-logo" />
-          </div>
-        )}
+        {!this.state.fetching ? <p /> : <LoadingScreen />}
         <ResultList
           episodes={this.state.episodes}
           program_title={this.state.program_title}

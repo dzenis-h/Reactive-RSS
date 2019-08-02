@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import Logo from "../logo.svg";
-// import { compose } from "redux";
-// import { connect } from "react-redux";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
+import LoadingScreen from "../helpers/Spinner";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -68,8 +66,6 @@ class EditFeed extends Component {
 
   render() {
     const { name, link } = this.state;
-
-    console.log(name);
 
     if (name || link) {
       return (
@@ -135,11 +131,7 @@ class EditFeed extends Component {
         </div>
       );
     } else {
-      return (
-        <div>
-          <img src={Logo} alt="" className="App-logo" />
-        </div>
-      );
+      return <LoadingScreen />;
     }
   }
 }

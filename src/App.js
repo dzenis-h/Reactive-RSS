@@ -11,7 +11,10 @@ import EditFeed from "./components/EditFeed";
 import Container from "@material-ui/core/Container";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
-// import "bootstrap/dist/css/bootstrap.css";
+import {
+  UserIsAuthenticated,
+  UserIsNotAuthenticated
+} from "./helpers/withAuthProtect";
 
 class App extends Component {
   render() {
@@ -20,14 +23,29 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
-            {/* <div className="container"> */}
             <Container>
               <Switch>
                 <Route exact path="/" component={Dashboard} />
-                <Route exact path="/add" component={AddFeed} />
-                <Route exact path="/edit/:id" component={EditFeed} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/singup" component={Register} />
+                <Route
+                  exact
+                  path="/add"
+                  component={UserIsAuthenticated(AddFeed)}
+                />
+                <Route
+                  exact
+                  path="/edit/:id"
+                  component={UserIsAuthenticated(EditFeed)}
+                />
+                <Route
+                  exact
+                  path="/login"
+                  component={UserIsNotAuthenticated(Login)}
+                />
+                <Route
+                  exact
+                  path="/singup"
+                  component={UserIsNotAuthenticated(Register)}
+                />
               </Switch>
             </Container>
             <Footer />

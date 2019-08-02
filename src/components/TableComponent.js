@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
-import Logo from "../logo.svg";
+import LoadingScreen from "../helpers/Spinner";
 
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -104,11 +104,7 @@ const TableComponent = props => {
       </div>
     );
   } else {
-    return (
-      <div>
-        <img src={Logo} alt="Reactive Feed" className="App-logo" />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 };
 
