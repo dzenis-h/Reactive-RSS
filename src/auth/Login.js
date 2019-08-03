@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-// import { compose } from "redux";
-// import { connect } from "react-redux";
+import { compose } from "redux";
+import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
+import Alert from "../components/Alert";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -11,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import { notifyUser } from "../actions/notifyActions";
 
 class Login extends Component {
   state = {
@@ -26,7 +28,7 @@ class Login extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const { firebase, history } = this.props;
+    const { firebase, history, notifyUser } = this.props;
     const { email, password } = this.state;
 
     firebase
@@ -35,10 +37,12 @@ class Login extends Component {
         password
       })
       .then(() => history.push("/"))
-      .catch(err => alert("Invalid Login Credentials", "error"));
+      .catch(err => notifyUser("Invalid Login Credentials", "error"));
   };
 
   render() {
+    const { message, messageType } = this.props.notify;
+
     return (
       <Container component="main" maxWidth="xs">
         <div>
@@ -85,10 +89,21 @@ class Login extends Component {
               </Grid>
             </Grid>
           </form>
+          {message ? (
+            <Alert message={message} messageType={messageType} />
+          ) : null}
         </div>
       </Container>
     );
   }
 }
 
-export default firebaseConnect()(Login);
+export default compose(
+  firebaseConnect(),
+  connect(
+    (state, props) => ({
+      notify: state.notify
+    }),
+    { notifyUser }
+  )
+)(Login);

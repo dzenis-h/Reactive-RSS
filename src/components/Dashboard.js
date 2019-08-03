@@ -22,7 +22,8 @@ class Dashboard extends Component {
     fetching: false,
     program_title: null,
     program_description: null,
-    program_image: null
+    program_image: null,
+    error: null
   };
 
   getFeed = e => {

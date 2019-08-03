@@ -15,6 +15,8 @@ import {
   UserIsAuthenticated,
   UserIsNotAuthenticated
 } from "./helpers/withAuthProtect";
+// Custom Reducers
+// import notifyReducer from "./reducers/notifyReducer";
 
 class App extends Component {
   render() {
