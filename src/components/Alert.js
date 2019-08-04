@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { notifyUser } from "../actions/notifyActions";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
 import {
   Button,
   Dialog,
@@ -10,33 +14,19 @@ import {
 } from "@material-ui/core";
 
 class Alert extends Component {
-  state = {
-    error: false
-  };
-
-  componentDidMount() {
-    const { messageType } = this.props;
-    if (messageType === "error") {
-      this.setState({
-        error: true
-      });
-    }
-  }
-
   handleClose = () => {
-    this.setState({
-      error: false
-    });
+    const { notifyUser } = this.props;
+    // Clean the error state so that the <Dialog /> can be closed ;)
+    notifyUser("", "");
   };
 
   renderAlert = () => {
-    const { message } = this.props;
-    const { error } = this.state;
+    const { message, messageType } = this.props;
 
     return (
       <div>
         <Dialog
-          open={error}
+          open={messageType === "error" ? true : false}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
@@ -68,4 +58,12 @@ Alert.propTypes = {
   messageType: PropTypes.string.isRequired
 };
 
-export default Alert;
+export default compose(
+  firebaseConnect(),
+  connect(
+    (state, props) => ({
+      notify: state.notify
+    }),
+    { notifyUser }
+  )
+)(Alert);

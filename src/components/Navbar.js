@@ -30,7 +30,7 @@ class Navbar extends Component {
     const { firebase } = this.props;
     firebase
       .logout()
-      .then(() => window.location.reload())
+      .then(() => console.log("User logged out"))
       .catch(err => console.log(err));
   };
 
