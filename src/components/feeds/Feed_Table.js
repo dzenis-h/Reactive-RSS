@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
-import LoadingScreen from "../helpers/Spinner";
+import LoadingScreen from "../../helpers/Spinner";
 
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -42,9 +42,6 @@ const TableComponent = props => {
     table: {
       minWidth: 700
     },
-    generl: {
-      fontWeight: 700
-    },
     name: {
       color: "#6666ff",
       fontWeight: 700
@@ -59,7 +56,7 @@ const TableComponent = props => {
 
   if (feeds) {
     return (
-      <div>
+      <Fragment>
         <Paper className={classes.root}>
           <Table className={classes.table}>
             <TableHead>
@@ -70,9 +67,7 @@ const TableComponent = props => {
                 <StyledTableCell className={classes.name} align="right">
                   FEED URL:
                 </StyledTableCell>
-                <StyledTableCell align="right" className={classes.general}>
-                  EDIT
-                </StyledTableCell>
+                <StyledTableCell align="right">EDIT</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -89,11 +84,11 @@ const TableComponent = props => {
                     {feed.feedLink}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <Link
-                      to={`/edit/${feed.id}`}
-                      className="btn btn-secondary btn-sm"
-                    >
-                      <i className="fas fa-pencil-alt" />
+                    <Link to={`/edit/${feed.id}`}>
+                      <i
+                        className="fas fa-pencil-alt"
+                        style={{ float: "right" }}
+                      />
                     </Link>
                   </StyledTableCell>
                 </StyledTableRow>
@@ -101,7 +96,7 @@ const TableComponent = props => {
             </TableBody>
           </Table>
         </Paper>
-      </div>
+      </Fragment>
     );
   } else {
     return <LoadingScreen />;

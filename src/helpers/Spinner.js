@@ -1,14 +1,12 @@
-import React, { Component } from "react";
+import React, { Fragment } from "react";
 import logo from "./logo.svg";
 
-class Spinner extends Component {
-  render() {
-    return (
-      <div>
-        <img src={logo} alt="" className="App-logo" />
-      </div>
-    );
-  }
-}
+const Spinner = () => {
+  return (
+    <Fragment>
+      <img src={logo} alt="" className="App-logo" />
+    </Fragment>
+  );
+};
 
 export default Spinner;

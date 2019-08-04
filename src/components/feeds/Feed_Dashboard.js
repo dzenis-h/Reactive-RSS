@@ -1,11 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Parser from "rss-parser";
-import Search from "./Search";
-import ResultList from "./ResultList";
-import TableComponent from "./TableComponent";
+
+import Search from "../layout/Search";
+import ResultList from "../layout/ResultList";
+import TableComponent from "./Feed_Table";
+
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
+
 import {
   Button,
   Dialog,
@@ -14,7 +17,7 @@ import {
   DialogContentText,
   DialogTitle
 } from "@material-ui/core";
-import LoadingScreen from "../helpers/Spinner";
+import LoadingScreen from "../../helpers/Spinner";
 
 class Dashboard extends Component {
   state = {
@@ -73,7 +76,7 @@ class Dashboard extends Component {
 
   renderAlert = () => {
     return (
-      <div>
+      <Fragment>
         <Dialog
           open={this.state.error}
           aria-labelledby="alert-dialog-title"
@@ -91,7 +94,7 @@ class Dashboard extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </Fragment>
     );
   };
 
@@ -99,7 +102,7 @@ class Dashboard extends Component {
     const { feeds } = this.props;
 
     return (
-      <div className="container">
+      <Fragment>
         <Search
           getFeed={this.getFeed}
           onClick={() => this.setState({ fetching: true })}
@@ -114,7 +117,7 @@ class Dashboard extends Component {
           fetching={this.props.fetching}
         />
         {feeds ? <TableComponent /> : null}
-      </div>
+      </Fragment>
     );
   }
 }

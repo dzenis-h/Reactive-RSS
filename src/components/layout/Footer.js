@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -19,13 +19,13 @@ export default function Footer() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div className={classes.root}>
         <div className="container">
           <span className={classes.textOne}>BiggaHD</span> | © 2019 Copyright |{" "}
           <span className={classes.textTwo}> Reactive RSS</span>
         </div>
       </div>
-    </React.Fragment>
+    </Fragment>
   );
 }

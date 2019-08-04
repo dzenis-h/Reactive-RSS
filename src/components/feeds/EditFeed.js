@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
-import LoadingScreen from "../helpers/Spinner";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Fab from "@material-ui/core/Fab";
+
+import LoadingScreen from "../../helpers/Spinner";
 
 class EditFeed extends Component {
   constructor(props) {

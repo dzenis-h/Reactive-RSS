@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { notifyUser } from "../actions/notifyActions";
-import Alert from "../components/Alert";
+import Alert from "../components/layout/Alert";
 
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -39,7 +39,7 @@ class Register extends Component {
 
     return (
       <Container component="main" maxWidth="xs">
-        <div>
+        <Fragment>
           <Avatar style={{ margin: "auto", marginTop: "1rem" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -78,7 +78,7 @@ class Register extends Component {
           {message ? (
             <Alert message={message} messageType={messageType} />
           ) : null}
-        </div>
+        </Fragment>
       </Container>
     );
   }

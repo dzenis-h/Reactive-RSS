@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { notifyUser } from "../actions/notifyActions";
+import { notifyUser } from "../../actions/notifyActions";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
@@ -24,7 +24,7 @@ class Alert extends Component {
     const { message, messageType } = this.props;
 
     return (
-      <div>
+      <Fragment>
         <Dialog
           open={messageType === "error" ? true : false}
           aria-labelledby="alert-dialog-title"
@@ -44,12 +44,12 @@ class Alert extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </Fragment>
     );
   };
 
   render() {
-    return <div>{this.renderAlert()}</div>;
+    return <Fragment>{this.renderAlert()}</Fragment>;
   }
 }
 

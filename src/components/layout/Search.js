@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
@@ -26,7 +26,8 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
+        <h4 className="blueColor">You can check your feeds here:</h4>
         <form onSubmit={this.props.getFeed}>
           <TextField
             id="outlined-with-placeholder"
@@ -48,7 +49,10 @@ class Search extends Component {
             </Button>
           </div>
         </form>
-      </div>
+        <h6 className="redColor">
+          NOTE: In order to add/ edit/ delete feeds you have to be logged in!
+        </h6>
+      </Fragment>
     );
   }
 }

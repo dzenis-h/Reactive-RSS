@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import RSS_LOGO from "../rss.png";
+import React, { Component, Fragment } from "react";
+import RSS_LOGO from "../../rss.png";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { compose } from "redux";
@@ -39,7 +39,8 @@ class Navbar extends Component {
     const { auth } = this.props;
 
     return (
-      <div>
+      <Fragment>
+        {" "}
         <AppBar position="static">
           <Toolbar>
             <Grid item xs={3}>
@@ -83,7 +84,7 @@ class Navbar extends Component {
             </Grid>
           </Toolbar>
         </AppBar>
-      </div>
+      </Fragment>
     );
   }
 }

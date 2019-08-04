@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 export default function SavedFeeds() {
   return (
-    <div className="container">
+    <Fragment>
       <p>{this.props.feeds}</p>
-    </div>
+    </Fragment>
   );
 }

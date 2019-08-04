@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
-import Alert from "../components/Alert";
+import Alert from "../components/layout/Alert";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -45,7 +45,7 @@ class Login extends Component {
 
     return (
       <Container component="main" maxWidth="xs">
-        <div>
+        <Fragment>
           <Avatar style={{ margin: "auto", marginTop: "1rem" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -92,7 +92,7 @@ class Login extends Component {
           {message ? (
             <Alert message={message} messageType={messageType} />
           ) : null}
-        </div>
+        </Fragment>{" "}
       </Container>
     );
   }

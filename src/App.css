@@ -83,3 +83,11 @@ body {
   width: 50%;
   padding: 10px;
 }
+
+.redColor {
+  color: #cc0000;
+}
+
+.blueColor {
+  color: #6666ff;
+}

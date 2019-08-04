@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Result from "./Result";
 
 class ResultList extends Component {
   renderEpisodeList = () => {
     return (
-      <div>
+      <Fragment>
         <h1>
           {this.props.program_title} by {this.props.creator}
         </h1>
         <img alt="" src={this.props.program_image} />
         <p>{this.props.program_description}</p>
         {this.props.episodes.map(this.returnEpisodes)}
-      </div>
+      </Fragment>
     );
   };
 

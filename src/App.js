@@ -1,22 +1,24 @@
 import React, { Component } from "react";
-import "./App.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Dashboard from "./components/Dashboard";
-import store from "./store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import AddFeed from "./components/AddFeed";
-import EditFeed from "./components/EditFeed";
-import Container from "@material-ui/core/Container";
+import "./App.css";
+
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import store from "./store";
+
+import Dashboard from "./components/feeds/Feed_Dashboard";
+import AddFeed from "./components/feeds/AddFeed";
+import EditFeed from "./components/feeds/EditFeed";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+
 import {
   UserIsAuthenticated,
   UserIsNotAuthenticated
 } from "./helpers/withAuthProtect";
-// Custom Reducers
-// import notifyReducer from "./reducers/notifyReducer";
+
+import Container from "@material-ui/core/Container";
 
 class App extends Component {
   render() {
