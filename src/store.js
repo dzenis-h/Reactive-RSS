@@ -8,7 +8,7 @@ import notifyReducer from "./reducers/notifyReducer";
 import { config } from "./config";
 
 const firebaseConfig = {
-  //   //  YOUR FIREBASE CONFIG FILE GO HERE ...
+  //   //  YOUR FIREBASE CONFIG FILE GOES HERE ...
   apiKey: config.apiKey,
   authDomain: config.authDomain,
   databaseURL: config.databaseURL,
