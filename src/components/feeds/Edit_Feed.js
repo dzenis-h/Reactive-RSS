@@ -16,22 +16,19 @@ class EditFeed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "",
       name: "",
-      link: ""
+      link: "",
+      isFetching: true
     };
   }
 
   componentDidMount() {
-    const { feeds } = this.props;
-    const { id } = this.props.match.params;
-
     setTimeout(() => {
-      let res = feeds.find(x => x.id === id);
+      const { feedName, feedLink } = this.props.feed;
       this.setState({
-        id: res.id,
-        name: res.feedName,
-        link: res.feedLink
+        name: feedName,
+        link: feedLink,
+        isFetching: false
       });
     }, 300);
   }
@@ -61,15 +58,16 @@ class EditFeed extends Component {
 
     firestore
       .delete({ collection: "feeds", doc: feed.id })
-      .then(history.push("/"));
+      .then(history.push("/"))
+      .catch(err => console.log(err));
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { name, link } = this.state;
+    const { name, link, isFetching } = this.state;
 
-    if (name || link) {
+    if (!isFetching) {
       return (
         <div
           style={{
@@ -140,16 +138,13 @@ class EditFeed extends Component {
 
 EditFeed.propTypes = {
   firestore: PropTypes.object.isRequired
-  //   settings: PropTypes.object.isRequired
 };
 
 export default compose(
   firestoreConnect(props => [
-    { collection: "feeds" },
     { collection: "feeds", storeAs: "feed", doc: props.match.params.id }
   ]),
   connect(({ firestore: { ordered } }, props) => ({
-    feeds: ordered.feeds,
     feed: ordered.feed && ordered.feed[0]
   }))
 )(EditFeed);

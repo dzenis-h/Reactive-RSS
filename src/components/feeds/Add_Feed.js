@@ -117,14 +117,6 @@ class AddFeed extends Component {
 
 AddFeed.propTypes = {
   firestore: PropTypes.object.isRequired
-  //   settings: PropTypes.object.isRequired
 };
 
-export default // compose(
-firestoreConnect()(
-  //   connect((state, props) => ({
-  //     settings: state.settings
-  //   }))
-  // )
-  AddFeed
-);
+export default firestoreConnect()(AddFeed);

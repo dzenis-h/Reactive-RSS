@@ -8,8 +8,8 @@ import Footer from "./components/layout/Footer";
 import store from "./store";
 
 import Dashboard from "./components/feeds/Feed_Dashboard";
-import AddFeed from "./components/feeds/AddFeed";
-import EditFeed from "./components/feeds/EditFeed";
+import AddFeed from "./components/feeds/Add_Feed";
+import EditFeed from "./components/feeds/Edit_Feed";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 
