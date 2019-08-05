@@ -49,9 +49,6 @@ class Search extends Component {
             </Button>
           </div>
         </form>
-        <h6 className="redColor">
-          NOTE: In order to add/ edit/ delete feeds you have to be logged in!
-        </h6>
       </Fragment>
     );
   }

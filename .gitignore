@@ -4,6 +4,14 @@
 ./src/config.js
 config.js
 
+.firebaserc
+.firebase.json
+firestore.indexes.json
+firestore.rules
+.firebase
+/.firebase
+
+
 # dependencies
 /node_modules
 /.pnp

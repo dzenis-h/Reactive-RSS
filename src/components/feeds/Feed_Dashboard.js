@@ -100,7 +100,6 @@ class Dashboard extends Component {
 
   render() {
     const { feeds } = this.props;
-
     return (
       <Fragment>
         <Search
@@ -116,7 +115,7 @@ class Dashboard extends Component {
           program_image={this.state.program_image}
           fetching={this.props.fetching}
         />
-        {feeds ? <TableComponent /> : null}
+        {feeds ? <TableComponent feeds={this.props.feeds} /> : null}
       </Fragment>
     );
   }

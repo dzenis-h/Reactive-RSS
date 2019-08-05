@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from "react";
 import RSS_LOGO from "../../rss.png";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
@@ -16,7 +17,6 @@ class Navbar extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { auth } = props;
-
     if (auth.uid) {
       return { isAuthenticated: true };
     } else {
@@ -27,10 +27,10 @@ class Navbar extends Component {
   onLogoutClick = e => {
     e.preventDefault();
 
-    const { firebase } = this.props;
+    const { firebase, history } = this.props;
     firebase
       .logout()
-      .then(() => console.log("User logged out"))
+      .then(() => history.push("/login"))
       .catch(err => console.log(err));
   };
 
@@ -90,10 +90,12 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-  firebase: PropTypes.object.isRequired
+  firebase: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 export default compose(
+  withRouter,
   firebaseConnect(),
   connect((state, props) => ({
     auth: state.firebase.auth

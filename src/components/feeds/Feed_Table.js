@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
-import LoadingScreen from "../../helpers/Spinner";
+import { firebaseConnect } from "react-redux-firebase";
 
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -52,9 +51,13 @@ const TableComponent = props => {
   }));
 
   const { feeds } = props;
+  const { isEmpty } = props.auth;
+
   const classes = useStyles();
 
-  if (feeds) {
+  // If the 'isEmpty' propery is === false that means the user is logged in
+  // In other words, show the table containing the 'protected/ saved' data ;)
+  if (isEmpty == false) {
     return (
       <Fragment>
         <Paper className={classes.root}>
@@ -99,13 +102,19 @@ const TableComponent = props => {
       </Fragment>
     );
   } else {
-    return <LoadingScreen />;
+    return (
+      <Fragment>
+        <h4 className="redColor">
+          NOTE: In order to add/ edit/ delete feeds you have to be logged in
+        </h4>
+      </Fragment>
+    );
   }
 };
 
 export default compose(
-  firestoreConnect([{ collection: "feeds" }]),
+  firebaseConnect(),
   connect((state, props) => ({
-    feeds: state.firestore.ordered.feeds
+    auth: state.firebase.auth
   }))
 )(TableComponent);
