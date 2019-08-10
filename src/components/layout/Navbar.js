@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import RSS_LOGO from "../../rss.png";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter, NavLink, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { compose } from "redux";
@@ -64,8 +64,8 @@ class Navbar extends Component {
             <Grid item xs={9}>
               {!isAuthenticated ? (
                 <div>
-                  <Link to="/login">Login</Link>
-                  <Link to="/singup">Singup</Link>
+                  <NavLink to="/login">Login</NavLink>
+                  <NavLink to="/singup">Singup</NavLink>
                 </div>
               ) : null}
 
@@ -75,7 +75,7 @@ class Navbar extends Component {
                     Welcome,{" "}
                     <span style={{ color: "#cc0000" }}>{auth.email}</span>
                   </p>
-                  <Link to="/add">Add Feed</Link>
+                  <NavLink to="/add">Add Feed</NavLink>
                   <a href="#!" onClick={this.onLogoutClick}>
                     Logout
                   </a>

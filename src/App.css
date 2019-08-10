@@ -69,7 +69,7 @@ body {
 
   a  {
     margin: 1.5rem;
-    color: #131313;
+    color: #6666ff;
     padding: 5px;
     text-decoration: none;
     font-size: 1rem; 
@@ -77,7 +77,9 @@ body {
 
   }
 
-  a:hover {
+  a:hover,
+  a:active,
+  a.active {
     color: #cc0000;
 }
 

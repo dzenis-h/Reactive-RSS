@@ -5,7 +5,7 @@ const Result = props => {
     <Fragment>
       <span style={{ color: "#cc0000" }}>→</span>
       <a
-        style={{ color: "#6666ff" }}
+        // style={{ color: "#6666ff" }}
         target="_blank"
         rel="noopener noreferrer"
         href={props.link}
