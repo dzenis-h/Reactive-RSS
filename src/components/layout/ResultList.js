@@ -30,9 +30,7 @@ class ResultList extends Component {
   };
 
   render() {
-    return (
-      <div>{this.props.episodes ? this.renderEpisodeList() : <div />}</div>
-    );
+    return <div>{this.props.episodes ? this.renderEpisodeList() : null}</div>;
   }
 }
 
