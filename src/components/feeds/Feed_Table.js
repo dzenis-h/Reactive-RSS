@@ -57,7 +57,7 @@ const TableComponent = props => {
 
   // If the 'isEmpty' propery is === false that means the user is logged in
   // In other words, show the table containing the 'protected/ saved' data ;)
-  if (isEmpty == false) {
+  if (JSON.parse(isEmpty) === false) {
     return (
       <Fragment>
         <Paper className={classes.root}>
