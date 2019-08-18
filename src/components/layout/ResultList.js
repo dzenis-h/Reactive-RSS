@@ -30,7 +30,11 @@ class ResultList extends Component {
   };
 
   render() {
-    return <div>{this.props.episodes ? this.renderEpisodeList() : null}</div>;
+    return (
+      <Fragment>
+        {this.props.episodes ? this.renderEpisodeList() : null}
+      </Fragment>
+    );
   }
 }
 

@@ -48,8 +48,9 @@ class Dashboard extends Component {
           feed.items.forEach(item => {
             arr.push(item);
           });
+          const newArr = arr.slice(0, 10); // limit the output to 10
           this.setState({
-            episodes: arr,
+            episodes: newArr,
             program_title: feed.title,
             fetching: !this.state.fetching,
             program_image: feed.image.url,
