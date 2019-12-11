@@ -43,40 +43,30 @@ class Navbar extends Component {
         {" "}
         <AppBar position="static">
           <Toolbar>
-            <Grid item xs={3}>
-              <Link to="/" style={{ float: "left", fontSize: "2rem" }}>
-                <img
-                  style={{
-                    float: "left",
-                    height: "45px",
-                    width: "45px",
-                    marginRight: "10px",
-                    marginTop: "auto"
-                  }}
-                  src={RSS_LOGO}
-                  alt="Reactive RSS"
-                />{" "}
-                <span style={{ fontSize: "1rem", margin: "auto" }}>
-                  Reactive RSS
-                </span>
+            <Grid item xs={4} className="nav-left">
+              <Link to="/" style={{ float: "left" }}>
+                <img className="brand" src={RSS_LOGO} alt="Reactive RSS" />{" "}
+                Reactive RSS
               </Link>
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={8}>
               {!isAuthenticated ? (
-                <div>
+                <div className="auth-links">
                   <NavLink to="/login">Login</NavLink>
                   <NavLink to="/singup">Singup</NavLink>
                 </div>
               ) : null}
 
               {isAuthenticated ? (
-                <div>
+                <div className="nav-right">
                   <p>
                     Welcome,{" "}
-                    <span style={{ color: "#cc0000" }}>{auth.email}</span>
+                    <span style={{ color: "#ff3817" }}>{auth.email}</span>
                   </p>
-                  <NavLink to="/add">Add Feed</NavLink>
-                  <a href="#!" onClick={this.onLogoutClick}>
+                  <NavLink to="/add" className="add-feed">
+                    Add Feed
+                  </NavLink>
+                  <a href="#!" className="logout" onClick={this.onLogoutClick}>
                     Logout
                   </a>
                 </div>

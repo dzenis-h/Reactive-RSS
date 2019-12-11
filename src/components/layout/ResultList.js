@@ -2,38 +2,36 @@ import React, { Component, Fragment } from "react";
 import Result from "./Result";
 
 class ResultList extends Component {
-  renderEpisodeList = () => {
+  renderFeedList = () => {
     return (
       <Fragment>
         <h1>
           {this.props.program_title} by {this.props.creator}
         </h1>
-        <img alt="" src={this.props.program_image} />
+        <img alt={this.props.program_title} src={this.props.program_image} />
         <p>{this.props.program_description}</p>
-        {this.props.episodes.map(this.returnEpisodes)}
+        {this.props.feeds.map(this.returnFeeds)}
       </Fragment>
     );
   };
 
-  returnEpisodes = (episode, i) => {
+  returnFeeds = (feed, i) => {
     return (
       <Result
         key={i}
         index={i}
-        title={episode.title}
-        enclosure={episode.enclosure}
-        link={episode.link ? episode.link : "json data is null or undefined"}
+        title={feed.title}
+        enclosure={feed.enclosure}
+        link={feed.link ? feed.link : "json data is null or undefined"}
         image={this.props.program_image}
-        description={episode.description}
+        description={feed.description}
       />
     );
   };
 
   render() {
     return (
-      <Fragment>
-        {this.props.episodes ? this.renderEpisodeList() : null}
-      </Fragment>
+      <Fragment>{this.props.feeds ? this.renderFeedList() : null}</Fragment>
     );
   }
 }

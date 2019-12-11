@@ -21,7 +21,7 @@ import LoadingScreen from "../../helpers/Spinner";
 
 class Dashboard extends Component {
   state = {
-    episodes: null,
+    feeds: null,
     fetching: false,
     program_title: null,
     program_description: null,
@@ -50,7 +50,7 @@ class Dashboard extends Component {
           });
           const newArr = arr.slice(0, 10); // limit the output to 10
           this.setState({
-            episodes: newArr,
+            feeds: newArr,
             program_title: feed.title,
             fetching: !this.state.fetching,
             program_image: feed.image.url,
@@ -110,7 +110,7 @@ class Dashboard extends Component {
         {this.state.error ? this.renderAlert() : <div />}
         {!this.state.fetching ? <p /> : <LoadingScreen />}
         <ResultList
-          episodes={this.state.episodes}
+          feeds={this.state.feeds}
           program_title={this.state.program_title}
           program_description={this.state.program_description}
           program_image={this.state.program_image}

@@ -22,7 +22,8 @@ export default function Footer() {
     <Fragment>
       <div className={classes.root}>
         <div className="container">
-          <span className={classes.textOne}>BiggaHD</span> | © 2019 Copyright |{" "}
+          <span className={classes.textOne}>Dzenis H.</span> | ©{" "}
+          {new Date().getFullYear()} Copyright |{" "}
           <span className={classes.textTwo}> Reactive RSS</span>
         </div>
       </div>
