@@ -13,6 +13,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
 const TableComponent = props => {
   const StyledTableCell = withStyles(theme => ({
     head: {
@@ -50,14 +52,18 @@ const TableComponent = props => {
     }
   }));
 
+  // const notify = () => {
+  //   setIsCopied(true);
+  //   // copyLink();
+  // };
+
   const { feeds } = props;
   const { isEmpty } = props.auth;
 
   const classes = useStyles();
-
   // If the 'isEmpty' propery is === false that means the user is logged in
   // In other words, show the table containing the 'protected/ saved' data ;)
-  if (JSON.parse(isEmpty) === false) {
+  if (!JSON.parse(isEmpty)) {
     return (
       <Fragment>
         <Paper className={classes.root}>
@@ -75,7 +81,7 @@ const TableComponent = props => {
             </TableHead>
             <TableBody>
               {feeds.map(feed => (
-                <StyledTableRow key={feed.id}>
+                <StyledTableRow key={feed.feedLink + feed.id}>
                   <StyledTableCell
                     component="th"
                     scope="row"
@@ -84,7 +90,14 @@ const TableComponent = props => {
                     {feed.feedName}
                   </StyledTableCell>
                   <StyledTableCell align="right" className={classes.link}>
-                    {feed.feedLink}
+                    <CopyToClipboard text={feed.feedLink}>
+                      <span
+                        style={{ cursor: "copy" }}
+                        title="Copy to clipboard"
+                      >
+                        {feed.feedLink}
+                      </span>
+                    </CopyToClipboard>
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Link to={`/edit/${feed.id}`}>

@@ -17,6 +17,7 @@ import {
   DialogContentText,
   DialogTitle
 } from "@material-ui/core";
+
 import LoadingScreen from "../../helpers/Spinner";
 
 class Dashboard extends Component {
@@ -122,9 +123,30 @@ class Dashboard extends Component {
   }
 }
 
-export default compose(
-  firestoreConnect([{ collection: "feeds" }]),
-  connect((state, props) => ({
+// export default compose(
+//   firestoreConnect([
+//     { collection: "feeds", doc: "SZEYRUFSSLO2SvpyHGmChcNE5mB3" }
+//   ]),
+//   connect((state, props) => ({
+//     auth: state.firebase.auth,
+//     feeds: state.firestore.ordered.feeds
+//   }))
+// )(Dashboard);
+
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
     feeds: state.firestore.ordered.feeds
-  }))
+  };
+};
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect(props => {
+    if (!props.auth.uid) return [];
+    return [{ collection: "feeds", where: [["id", "==", props.auth.uid]] }];
+  })
 )(Dashboard);
+
+// var docRef = db.collection("cities").doc("SF");
+
+// docRef.get()
