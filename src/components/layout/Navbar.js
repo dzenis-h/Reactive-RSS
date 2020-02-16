@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import RSS_LOGO from "../../rss.png";
+import RSS_LOGO from "../../assets/rss.png";
 import { withRouter, NavLink, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 

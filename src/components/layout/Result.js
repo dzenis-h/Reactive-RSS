@@ -48,14 +48,6 @@ const Result = props => {
         <Divider />
       </List>
     </div>
-
-    /* // <Fragment>
-    //   <span style={{ color: "#cc0000" }}>→</span>
-    //   <a target="_blank" rel="noopener noreferrer" href={props.link}>
-    //     {props.title}
-    //   </a>
-    //   
-    // </Fragment> */
   );
 };
 

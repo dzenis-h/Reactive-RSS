@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+
+import { compose } from "redux";
+import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 
 import Button from "@material-ui/core/Button";
@@ -33,16 +36,22 @@ class AddFeed extends Component {
     e.preventDefault();
 
     const { feedName, feedLink } = this.state;
+    const { uid } = this.props.auth;
 
     const newFeed = {
+      id: uid,
       feedName,
       feedLink
     };
 
     const { firestore, history } = this.props;
 
+    // firestore
+    //   .add({ collection: "feeds" }, newFeed)
+
     firestore
-      .add({ collection: "feeds" }, newFeed)
+      .collection("feeds")
+      .add(newFeed)
       .then(() => history.push("/"));
   };
 
@@ -119,4 +128,26 @@ AddFeed.propTypes = {
   firestore: PropTypes.object.isRequired
 };
 
-export default firestoreConnect()(AddFeed);
+// export default firestoreConnect()(AddFeed);
+
+// export default compose(
+//   firestoreConnect([{ collection: "feeds" }]),
+//   connect((state, props) => ({
+//     auth: state.firebase.auth,
+//     feeds: state.firestore.ordered.feeds
+//   }))
+// )(AddFeed);
+
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
+    feeds: state.firestore.ordered.feeds
+  };
+};
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect(props => {
+    if (!props.auth.uid) return [];
+    return [{ collection: "feeds", where: [["id", "==", props.auth.uid]] }];
+  })
+)(AddFeed);
