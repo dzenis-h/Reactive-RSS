@@ -15,55 +15,54 @@ import Paper from "@material-ui/core/Paper";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-const TableComponent = props => {
-  const StyledTableCell = withStyles(theme => ({
+const TableComponent = (props) => {
+  const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white
+      color: theme.palette.common.white,
     },
     body: {
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   }))(TableCell);
 
-  const StyledTableRow = withStyles(theme => ({
+  const StyledTableRow = withStyles((theme) => ({
     root: {
       "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.background.default
-      }
-    }
+        backgroundColor: theme.palette.background.default,
+      },
+    },
   }))(TableRow);
 
-  const useStyles = makeStyles(theme => ({
+  const useStyles = makeStyles((theme) => ({
     root: {
       width: "100%",
       marginTop: theme.spacing(3),
-      overflowX: "auto"
+      overflowX: "auto",
     },
     table: {
-      minWidth: 700
+      minWidth: 700,
     },
     name: {
       color: "#6666ff",
-      fontWeight: 700
+      fontWeight: 700,
     },
     link: {
-      color: "#cc0000"
-    }
+      color: "#cc0000",
+    },
   }));
 
-  // const notify = () => {
-  //   setIsCopied(true);
-  //   // copyLink();
-  // };
-
-  const { feeds } = props;
-  const { isEmpty } = props.auth;
+  const {
+    feeds,
+    auth: { isEmpty },
+  } = props;
+  const empty = isEmpty ? JSON.parse(isEmpty) : isEmpty;
+  const empty2 = feeds ? Object.keys(feeds).length !== 0 : null;
 
   const classes = useStyles();
   // If the 'isEmpty' propery is === false that means the user is logged in
   // In other words, show the table containing the 'protected/ saved' data ;)
-  if (!JSON.parse(isEmpty)) {
+  if (!empty && empty2) {
     return (
       <Fragment>
         <Paper className={classes.root}>
@@ -80,7 +79,7 @@ const TableComponent = props => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {feeds.map(feed => (
+              {feeds.map((feed) => (
                 <StyledTableRow key={feed.feedLink + feed.id}>
                   <StyledTableCell
                     component="th"
@@ -100,7 +99,9 @@ const TableComponent = props => {
                     </CopyToClipboard>
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <Link to={`/edit/${feed.id}`}>
+                    <Link
+                      to={{ pathname: `/edit/${feed.id}`, state: { feed } }}
+                    >
                       <i
                         className="fas fa-pencil-alt"
                         style={{ float: "right" }}
@@ -114,20 +115,18 @@ const TableComponent = props => {
         </Paper>
       </Fragment>
     );
-  } else {
-    return (
-      <Fragment>
-        <h4 className="redColor">
-          NOTE: In order to add/ edit/ delete feeds you have to be logged in
-        </h4>
-      </Fragment>
-    );
   }
+  return (
+    <h4 className="redColor">
+      You didn't save any RSS feeds, yet. As soon as you do they will appear
+      here.
+    </h4>
+  );
 };
 
 export default compose(
   firebaseConnect(),
   connect((state, props) => ({
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
   }))
 )(TableComponent);

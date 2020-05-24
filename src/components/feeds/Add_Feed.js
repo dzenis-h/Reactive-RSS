@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import { firestoreConnect } from "react-redux-firebase";
 
 import Button from "@material-ui/core/Button";
@@ -16,7 +17,7 @@ class AddFeed extends Component {
     this.state = {
       feedName: "",
       feedLink: "",
-      enabled: true
+      enabled: true,
     };
     this.onChange = this.onChange.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -32,37 +33,38 @@ class AddFeed extends Component {
     }
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     const { feedName, feedLink } = this.state;
     const { uid } = this.props.auth;
+    const docId = uuidv4();
 
     const newFeed = {
-      id: uid,
+      userId: uid,
       feedName,
-      feedLink
+      feedLink,
+      docId,
     };
 
     const { firestore, history } = this.props;
 
-    // firestore
-    //   .add({ collection: "feeds" }, newFeed)
-
     firestore
       .collection("feeds")
-      .add(newFeed)
-      .then(() => history.push("/"));
+      .doc(docId)
+      .set(newFeed)
+      .then(() => history.push("/"))
+      .catch((err) => console.log(err));
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     return (
       <div
         style={{
           margin: "1.5rem",
-          padding: "2rem"
+          padding: "2rem",
         }}
       >
         <div>
@@ -78,7 +80,7 @@ class AddFeed extends Component {
             <TextField
               type="text"
               name="feedName"
-              onChange={e => {
+              onChange={(e) => {
                 this.handleSearchChange(e);
                 this.onChange(e);
               }}
@@ -94,7 +96,7 @@ class AddFeed extends Component {
             <TextField
               type="text"
               name="feedLink"
-              onChange={e => {
+              onChange={(e) => {
                 this.handleSearchChange(e);
                 this.onChange(e);
               }}
@@ -125,29 +127,19 @@ class AddFeed extends Component {
 }
 
 AddFeed.propTypes = {
-  firestore: PropTypes.object.isRequired
+  firestore: PropTypes.object.isRequired,
 };
 
-// export default firestoreConnect()(AddFeed);
-
-// export default compose(
-//   firestoreConnect([{ collection: "feeds" }]),
-//   connect((state, props) => ({
-//     auth: state.firebase.auth,
-//     feeds: state.firestore.ordered.feeds
-//   }))
-// )(AddFeed);
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    feeds: state.firestore.ordered.feeds
+    feeds: state.firestore.ordered.feeds,
   };
 };
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect(props => {
+  firestoreConnect((props) => {
     if (!props.auth.uid) return [];
-    return [{ collection: "feeds", where: [["id", "==", props.auth.uid]] }];
+    return [{ collection: "feeds" }];
   })
 )(AddFeed);

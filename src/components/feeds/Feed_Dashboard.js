@@ -15,7 +15,7 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
 } from "@material-ui/core";
 
 import LoadingScreen from "../../helpers/Spinner";
@@ -27,17 +27,17 @@ class Dashboard extends Component {
     program_title: null,
     program_description: null,
     program_image: null,
-    error: null
+    error: null,
   };
 
-  getFeed = e => {
+  getFeed = (e) => {
     this.setState({ fetching: !this.state.fetching });
     e.preventDefault();
     const feedLink = e.target.elements.feedLink.value;
     let parser = new Parser({
       customFields: {
-        item: [["enclosure", { keepArray: true }]]
-      }
+        item: [["enclosure", { keepArray: true }]],
+      },
     });
     const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
@@ -46,7 +46,7 @@ class Dashboard extends Component {
         try {
           let feed = await parser.parseURL(`${CORS_PROXY}${feedLink}`);
           let arr = [];
-          feed.items.forEach(item => {
+          feed.items.forEach((item) => {
             arr.push(item);
           });
           const newArr = arr.slice(0, 10); // limit the output to 10
@@ -57,7 +57,7 @@ class Dashboard extends Component {
             program_image: feed.image.url,
             program_description: feed.description,
             program_link: feed.link,
-            error: false
+            error: false,
           });
         } catch (err) {
           console.log(err);
@@ -72,7 +72,7 @@ class Dashboard extends Component {
   handleClose = () => {
     this.setState({
       error: false,
-      fetching: false
+      fetching: false,
     });
   };
 
@@ -101,7 +101,11 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { feeds } = this.props;
+    const {
+      auth: { isEmpty },
+    } = this.props;
+    const empty = isEmpty ? JSON.parse(isEmpty) : null;
+
     return (
       <Fragment>
         <Search
@@ -117,36 +121,31 @@ class Dashboard extends Component {
           program_image={this.state.program_image}
           fetching={this.props.fetching}
         />
-        {feeds ? <TableComponent feeds={this.props.feeds} /> : null}
+        {!empty ? (
+          <TableComponent feeds={this.props.feeds} />
+        ) : (
+          <Fragment>
+            <h4 className="redColor">
+              NOTE: In order to add/ edit/ delete feeds you have to be logged
+              in.
+            </h4>
+          </Fragment>
+        )}
       </Fragment>
     );
   }
 }
 
-// export default compose(
-//   firestoreConnect([
-//     { collection: "feeds", doc: "SZEYRUFSSLO2SvpyHGmChcNE5mB3" }
-//   ]),
-//   connect((state, props) => ({
-//     auth: state.firebase.auth,
-//     feeds: state.firestore.ordered.feeds
-//   }))
-// )(Dashboard);
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    feeds: state.firestore.ordered.feeds
+    feeds: state.firestore.ordered.feeds,
   };
 };
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect(props => {
+  firestoreConnect((props) => {
     if (!props.auth.uid) return [];
-    return [{ collection: "feeds", where: [["id", "==", props.auth.uid]] }];
+    return [{ collection: "feeds", where: [["userId", "==", props.auth.uid]] }];
   })
 )(Dashboard);
-
-// var docRef = db.collection("cities").doc("SF");
-
-// docRef.get()
