@@ -18,13 +18,13 @@ const firebaseConfig = {
   projectId: config.projectId,
   storageBucket: config.storageBucket,
   messagingSenderId: config.messagingSenderId,
-  appId: config.appId
+  appId: config.appId,
 };
 
 // react-redux-firebase config
 const rrfConfig = {
   userProfile: "users",
-  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+  useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
 };
 
 // Init firebase instance
@@ -40,7 +40,7 @@ const rootReducer = combineReducers({
   firebase: firebaseReducer,
   firestore: firestoreReducer,
   notify: notifyReducer,
-  feedsFunc: feedsReducer
+  feedsFunc: feedsReducer,
 });
 
 // Create initial state
@@ -51,8 +51,8 @@ const store = createStoreWithFirebase(
   rootReducer,
   initialState,
   compose(
-    reactReduxFirebase(firebase)
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    reactReduxFirebase(firebase),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 

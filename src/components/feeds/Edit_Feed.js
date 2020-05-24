@@ -18,51 +18,58 @@ class EditFeed extends Component {
     this.state = {
       name: "",
       link: "",
-      isFetching: true
+      docId: "",
+      isFetching: true,
     };
   }
 
   componentDidMount() {
+    const {
+      feedName,
+      feedLink,
+      docId,
+    } = this.props.history.location.state.feed;
+
     setTimeout(() => {
-      const { feedName, feedLink } = this.props.feed;
       this.setState({
         name: feedName,
         link: feedLink,
-        isFetching: false
+        docId,
+        isFetching: false,
       });
     }, 300);
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     const { firestore, history } = this.props;
-    const { id } = this.props.match.params;
-    const { name, link } = this.state;
+    const { name, link, docId } = this.state;
 
     // Updated Client
     const updClient = {
       feedName: name,
-      feedLink: link
+      feedLink: link,
     };
 
     // Update client in firestore
     firestore
-      .update({ collection: "feeds", doc: id }, updClient)
+      .update({ collection: "feeds", doc: docId }, updClient)
       .then(history.push("/"));
   };
 
   // Delete client
   onDeleteClick = () => {
-    const { feed, firestore, history } = this.props;
+    const { firestore, history } = this.props;
+    const { docId } = this.state;
 
     firestore
-      .delete({ collection: "feeds", doc: feed.id })
+      .delete({ collection: "feeds", doc: docId })
       .then(history.push("/"))
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     const { name, link, isFetching } = this.state;
@@ -72,7 +79,7 @@ class EditFeed extends Component {
         <div
           style={{
             margin: "1.5rem",
-            padding: "2rem"
+            padding: "2rem",
           }}
         >
           <div>
@@ -137,14 +144,19 @@ class EditFeed extends Component {
 }
 
 EditFeed.propTypes = {
-  firestore: PropTypes.object.isRequired
+  firestore: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    feeds: state.firestore.ordered.feeds,
+  };
+};
 export default compose(
-  firestoreConnect(props => [
-    { collection: "feeds", storeAs: "feed", doc: props.match.params.id }
-  ]),
-  connect(({ firestore: { ordered } }, props) => ({
-    feed: ordered.feed && ordered.feed[0]
-  }))
+  connect(mapStateToProps),
+  firestoreConnect((props) => {
+    if (!props.auth.uid) return [];
+    return [{ collection: "feeds", where: [["userId", "==", props.auth.uid]] }];
+  })
 )(EditFeed);

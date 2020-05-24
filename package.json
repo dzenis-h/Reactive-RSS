@@ -1,6 +1,6 @@
 {
   "name": "reactive_rss",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "private": true,
   "author": "Dzenis H.",
   "description": "App to get a quick feed of your favorite news sites with the ability to save the links.",
@@ -19,7 +19,8 @@
     "redux": "^4.0.4",
     "redux-auth-wrapper": "^2.1.0",
     "redux-firestore": "^0.8.0",
-    "rss-parser": "^3.7.2"
+    "rss-parser": "^3.7.2",
+    "uuid": "^8.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
