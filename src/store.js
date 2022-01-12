@@ -7,18 +7,17 @@ import { reduxFirestore, firestoreReducer } from "redux-firestore";
 import notifyReducer from "./reducers/notifyReducer";
 import feedsReducer from "./reducers/feedsReducer";
 
-import { config } from "./config/config";
+// import { config } from "./config/config";
 
 const firebaseConfig = {
-  //  YOUR FIREBASE CONFIGS GO HERE ...
-  // src\config\config_dev.js
-  apiKey: config.apiKey,
-  authDomain: config.authDomain,
-  databaseURL: config.databaseURL,
-  projectId: config.projectId,
-  storageBucket: config.storageBucket,
-  messagingSenderId: config.messagingSenderId,
-  appId: config.appId,
+  //  YOUR FIREBASE CONFIGS GO HERE ...  ---> src\config\config_dev.js
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
 };
 
 // react-redux-firebase config
@@ -52,6 +51,7 @@ const store = createStoreWithFirebase(
   initialState,
   compose(
     reactReduxFirebase(firebase)
+    // THE FOLLOWING LINE IS ONLY USEFUL IN THE DEVELOPMENT
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );

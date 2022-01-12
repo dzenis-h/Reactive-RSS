@@ -39,7 +39,7 @@ class Dashboard extends Component {
         item: [["enclosure", { keepArray: true }]],
       },
     });
-    const CORS_PROXY = "https://app.cors.bridged.cc/";
+    const CORS_PROXY = "https://crossorigin.me/";
 
     if (feedLink) {
       (async () => {
