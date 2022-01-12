@@ -5,10 +5,10 @@
 
 # firebase related files:
 
-# .firebaserc
-# .firebase.json
-# firestore.indexes.json
-# firestore.rules
+ .firebaserc
+ .firebase.json
+ firestore.indexes.json
+ firestore.rules
 
 .firebase
 /.firebase
