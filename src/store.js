@@ -1,8 +1,5 @@
 import { createStore, combineReducers, compose } from "redux";
-
-// import firebase from "firebase";
-import firebase from "firebase/compat/app";
-
+import firebase from "firebase";
 import "firebase/firestore";
 import { reactReduxFirebase, firebaseReducer } from "react-redux-firebase";
 import { reduxFirestore, firestoreReducer } from "redux-firestore";
@@ -10,9 +7,7 @@ import { reduxFirestore, firestoreReducer } from "redux-firestore";
 import notifyReducer from "./reducers/notifyReducer";
 import feedsReducer from "./reducers/feedsReducer";
 
-import { config } from "./config/config";
-
-let firebaseConfig;
+import { config } from "./config/config_dev";
 
 if (process.env.NODE_ENV === "development") {
   //  YOUR FIREBASE CONFIGS GO HERE ...  ---> src\config\config_dev.js
@@ -44,7 +39,6 @@ const rrfConfig = {
 };
 
 // Init firebase instance
-// firebase.initializeApp(firebaseConfig);
 firebase.initializeApp(firebaseConfig);
 
 // Add reactReduxFirebase enhancer when making store creator
@@ -69,7 +63,6 @@ const store = createStoreWithFirebase(
   initialState,
   compose(
     reactReduxFirebase(firebase)
-    // THE FOLLOWING LINE IS ONLY USEFUL IN THE DEVELOPMENT
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );

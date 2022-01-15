@@ -3,7 +3,10 @@ import Parser from "rss-parser";
 
 import Search from "../layout/Search";
 import ResultList from "../layout/ResultList";
-import TableComponent from "./Feed_Table";
+import MainTableComponent from "./Feed_Table";
+import Popular from "../layout/Popular";
+
+import LoadingScreen from "../../helpers/Spinner";
 
 import { compose } from "redux";
 import { connect } from "react-redux";
@@ -17,8 +20,6 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@material-ui/core";
-
-import LoadingScreen from "../../helpers/Spinner";
 
 class Dashboard extends Component {
   state = {
@@ -39,12 +40,13 @@ class Dashboard extends Component {
         item: [["enclosure", { keepArray: true }]],
       },
     });
-    const CORS_PROXY = "https://thingproxy.freeboard.io/fetch/";
+    // const CORS_PROXY = "https://thingproxy.freeboard.io/fetch/";
 
     if (feedLink) {
       (async () => {
         try {
-          let feed = await parser.parseURL(`${CORS_PROXY}${feedLink}`);
+          // let feed = await parser.parseURL(`${CORS_PROXY}${feedLink}`);
+          let feed = await parser.parseURL(`${feedLink}`);
           let arr = [];
           feed.items.forEach((item) => {
             arr.push(item);
@@ -122,9 +124,12 @@ class Dashboard extends Component {
           fetching={this.props.fetching}
         />
         {!empty ? (
-          <TableComponent feeds={this.props.feeds} />
+          <MainTableComponent feeds={this.props.feeds} />
         ) : (
           <Fragment>
+            <br />
+            <hr />
+            <Popular />
             <h4 className="redColor">
               NOTE: In order to add/ edit/ delete feeds you have to be logged
               in.
