@@ -9,6 +9,8 @@ import feedsReducer from "./reducers/feedsReducer";
 
 import { config } from "./config/config_dev";
 
+let firebaseConfig;
+
 if (process.env.NODE_ENV === "development") {
   //  YOUR FIREBASE CONFIGS GO HERE ...  ---> src\config\config_dev.js
   firebaseConfig = {
