@@ -1,6 +1,8 @@
 import { createStore, combineReducers, compose } from "redux";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
 import "firebase/firestore";
+
 import { reactReduxFirebase, firebaseReducer } from "react-redux-firebase";
 import { reduxFirestore, firestoreReducer } from "redux-firestore";
 // Custom Reducers
@@ -9,28 +11,15 @@ import feedsReducer from "./reducers/feedsReducer";
 
 import { config } from "./config/config_dev";
 
-if (process.env.NODE_ENV === "development") {
-  //  YOUR FIREBASE CONFIGS GO HERE ...  ---> src\config\config_dev.js
-  firebaseConfig = {
-    apiKey: config.apiKey,
-    authDomain: config.authDomain,
-    databaseURL: config.databaseURL,
-    projectId: config.projectId,
-    storageBucket: config.storageBucket,
-    messagingSenderId: config.messagingSenderId,
-    appId: config.appId,
-  };
-} else {
-  firebaseConfig = {
-    apiKey: process.env.API_KEY.toString(),
-    authDomain: process.env.AUTH_DOMAIN.toString(),
-    databaseURL: process.env.DATABASE_URL.toString(),
-    projectId: process.env.PROJECT_ID.toString(),
-    storageBucket: process.env.STORAGE_BUCKET.toString(),
-    messagingSenderId: process.env.MESSAGING_SENDER_ID.toString(),
-    appId: process.env.APP_ID.toString(),
-  };
-}
+let firebaseConfig = {
+  apiKey: "AIzaSyD1Tbn5zdnGKOD5RDvvxXkGQBqOR6GQDes",
+  authDomain: "reactive-feeds.firebaseapp.com",
+  databaseURL: "https://reactive-feeds.firebaseio.com",
+  projectId: "reactive-feeds",
+  storageBucket: "reactive-feeds.appspot.com",
+  messagingSenderId: "512493791420",
+  appId: "1:512493791420:web:b5dc3882054f43c48dc8b9",
+};
 
 // react-redux-firebase config
 const rrfConfig = {

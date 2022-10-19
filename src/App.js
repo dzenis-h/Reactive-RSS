@@ -15,7 +15,7 @@ import Register from "./auth/Register";
 
 import {
   UserIsAuthenticated,
-  UserIsNotAuthenticated
+  UserIsNotAuthenticated,
 } from "./helpers/withAuthProtect";
 
 import Container from "@material-ui/core/Container";

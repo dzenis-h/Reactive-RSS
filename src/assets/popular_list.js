@@ -6,11 +6,6 @@ export default [
   },
   {
     id: 2,
-    name: "The Daily",
-    url: "http://rss.art19.com/the-daily",
-  },
-  {
-    id: 3,
     name: "Crime Junkie",
     url: "https://feeds.megaphone.fm/ADL9840290619",
   },
