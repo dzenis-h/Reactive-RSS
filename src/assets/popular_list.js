@@ -1,3 +1,5 @@
+// Default RSS feeds
+
 export default [
   {
     id: 1,
