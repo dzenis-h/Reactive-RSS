@@ -25,7 +25,7 @@ Contributions are always welcome! If you would like to contribute to this projec
 4. Submit a pull request. ✔
 
 ## License ⚖️
-This project is licensed under the MIT License - see the [LICENSE.md](https://docs.google.com/document/d/11WK7tVoTFRMcWCuGZQCRWxEsDUEJ_6ArtfV-NjWcBCU/edit?usp=sharing) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://docs.google.com/document/d/11WK7tVoTFRMcWCuGZQCRWxEsDUEJ_6ArtfV-NjWcBCU/edit?usp=sharing) file for details.
 
 ## Deployed 🚀
 You can visit the deployed version of the app [here](https://reactive-feeds.web.app).
